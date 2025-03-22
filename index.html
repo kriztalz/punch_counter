@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punch Counter</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        
+        .container {
+            position: relative;
+            margin: 20px;
+        }
+        
+        .video-container {
+            position: relative;
+            border: 3px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 640px;
+            height: 480px;
+        }
+        
+        #video, #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: scaleX(-1); /* Mirror both video and canvas */
+        }
+        
+        #video {
+            z-index: 5; /* Ensure video is below canvas */
+            object-fit: cover;
+        }
+        
+        #canvas {
+            z-index: 10;
+            background-color: transparent; /* Ensure canvas is transparent */
+        }
+        
+        .counter-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 2rem;
+            font-weight: bold;
+            z-index: 20;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .status {
+            margin: 15px 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        
+        .reset {
+            background-color: #e74c3c;
+        }
+        
+        .reset:hover {
+            background-color: #c0392b;
+        }
+        
+        .stop {
+            background-color: #f39c12;
+        }
+        
+        .stop:hover {
+            background-color: #d35400;
+        }
+    </style>
+</head>
+<body>
+    <h1>Punch Counter</h1>
+    
+    <div class="container">
+        <div class="video-container">
+            <video id="video" playsinline></video>
+            <canvas id="canvas"></canvas>
+            <div class="counter-container">
+                <span id="counter">0</span>
+            </div>
+        </div>
+        <div class="status" id="status">Loading model...</div>
+        
+        <div class="controls">
+            <button id="startBtn">Start Camera</button>
+            <button id="stopBtn" class="stop" disabled>Stop Camera</button>
+            <button id="resetBtn" class="reset" disabled>Reset Counter</button>
+        </div>
+    </div>
+
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <!-- TensorFlow.js models -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
